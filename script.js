@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Event listener for the "Enter" key in the input field
     taskInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') { // Check if the pressed key is "Enter"
+        if (Event.key === 'Enter') { // Check if the pressed key is "Enter"
             addTask();
         }
     });
