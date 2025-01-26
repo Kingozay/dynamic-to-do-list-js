@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Create a remove button
         const removeButton = document.createElement('button');
         removeButton.textContent = 'Remove';
-        removeButton.classList.add('remove-btn'); // Use classList.add to add the class
+        removeButton.classList.add('remove-btn');
 
         // Add event listener to remove button
         removeButton.addEventListener('click', () => {
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Create a remove button
             const removeButton = document.createElement('button');
             removeButton.textContent = 'Remove';
-            removeButton.classList.add('remove-btn'); // Use classList.add to add the class
+            removeButton.classList.add('remove-btn');
 
             // Add event listener to remove button
             removeButton.addEventListener('click', () => {
@@ -79,8 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
     addButton.addEventListener('click', addTask);
 
     // Event listener for the "Enter" key in the input field
-    taskInput.addEventListener('keypress', (e) => {
-        if (Event.key === 'Enter') { // Check if the pressed key is "Enter"
+    taskInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
             addTask();
         }
     });
