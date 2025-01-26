@@ -4,9 +4,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const taskList = document.getElementById('task-list');
 
     // Function to add a new task
-    function addTask() {
-        const taskText = taskInput.value.trim();
+    function addTask(taskText = '', save = true) {
+        // If taskText is not provided, get it from the input field
+        if (!taskText) {
+            taskText = taskInput.value.trim();
+        }
 
+        // Check if the task text is empty
         if (taskText === '') {
             alert('Please enter a task!');
             return;
@@ -24,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Add event listener to remove button
         removeButton.addEventListener('click', () => {
             taskList.removeChild(li);
-            saveTasks();
+            saveTasks(); // Update localStorage after removal
         });
 
         // Append the remove button to the list item
@@ -33,11 +37,15 @@ document.addEventListener('DOMContentLoaded', () => {
         // Append the list item to the task list
         taskList.appendChild(li);
 
-        // Clear the input field
-        taskInput.value = '';
+        // Clear the input field if the task was added via the input field
+        if (save) {
+            taskInput.value = '';
+        }
 
-        // Save tasks to localStorage
-        saveTasks();
+        // Save tasks to localStorage if the task was added via the input field
+        if (save) {
+            saveTasks();
+        }
     }
 
     // Function to save tasks to localStorage
@@ -53,30 +61,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function loadTasks() {
         const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
         tasks.forEach(task => {
-            const li = document.createElement('li');
-            li.textContent = task;
-
-            // Create a remove button
-            const removeButton = document.createElement('button');
-            removeButton.textContent = 'Remove';
-            removeButton.classList.add('remove-btn');
-
-            // Add event listener to remove button
-            removeButton.addEventListener('click', () => {
-                taskList.removeChild(li);
-                saveTasks();
-            });
-
-            // Append the remove button to the list item
-            li.appendChild(removeButton);
-
-            // Append the list item to the task list
-            taskList.appendChild(li);
+            addTask(task, false); // Add tasks without saving to localStorage again
         });
     }
 
     // Event listener for the "Add Task" button
-    addButton.addEventListener('click', addTask);
+    addButton.addEventListener('click', () => addTask());
 
     // Event listener for the "Enter" key in the input field
     taskInput.addEventListener('keypress', (event) => {
