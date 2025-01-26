@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Create a remove button
         const removeButton = document.createElement('button');
         removeButton.textContent = 'Remove';
-        removeButton.className = 'remove-btn';
+        removeButton.classList.add('remove-btn'); // Use classList.add to add the class
 
         // Add event listener to remove button
         removeButton.addEventListener('click', () => {
@@ -53,8 +53,25 @@ document.addEventListener('DOMContentLoaded', () => {
     function loadTasks() {
         const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
         tasks.forEach(task => {
-            taskInput.value = task;
-            addTask();
+            const li = document.createElement('li');
+            li.textContent = task;
+
+            // Create a remove button
+            const removeButton = document.createElement('button');
+            removeButton.textContent = 'Remove';
+            removeButton.classList.add('remove-btn'); // Use classList.add to add the class
+
+            // Add event listener to remove button
+            removeButton.addEventListener('click', () => {
+                taskList.removeChild(li);
+                saveTasks();
+            });
+
+            // Append the remove button to the list item
+            li.appendChild(removeButton);
+
+            // Append the list item to the task list
+            taskList.appendChild(li);
         });
     }
 
